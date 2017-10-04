@@ -6,6 +6,8 @@
   <link rel=icon href=favicon.png sizes="16x16" type="image/png">
   <link rel="manifest" href="/manifest.json">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">  
+  <link href="styles.css" rel="stylesheet">  
   <meta name="theme-color">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
   />
@@ -13,6 +15,27 @@
 </head>
 
 <body>
+  <header id="area">Turku</header>
+  <section id="trades">
+    <a href="#" id="electrician" title="sähköasentaja"><i class="fa fa-bolt" aria-hidden="true"></i></a>    
+    <a href="#" id="hvac" title="LVI-asentaja"><i class="fa fa-bath" aria-hidden="true"></i></a>
+    <a href="#" id="builder" title="rakentaja"><i class="fa fa-home" aria-hidden="true"></i></a>
+  </section>
+  <section id="profiles"></section>
+  <footer></footer>
 </body>
-
+<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC-K_yBIoGedRDdzYhkkZFSzQfQYzQh4Vg",
+    authDomain: "valmiiksi-fi.firebaseapp.com",
+    databaseURL: "https://valmiiksi-fi.firebaseio.com",
+    projectId: "valmiiksi-fi",
+    storageBucket: "valmiiksi-fi.appspot.com",
+    messagingSenderId: "404319551974"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="scripts.js"></script>
 </html>

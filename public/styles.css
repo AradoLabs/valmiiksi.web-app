@@ -1,0 +1,26 @@
+body {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+
+#area {
+    text-align: center;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin: 1em;
+}
+
+#trades {
+    text-align: center;
+    font-size: 3em;
+    margin: 1em;
+}
+
+#trades a {
+    margin: 1em;
+}
+
+a {
+    color: black;
+}
