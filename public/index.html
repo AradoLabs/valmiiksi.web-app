@@ -15,15 +15,23 @@
 </head>
 
 <body>
-  <header id="area">Turku</header>
-  <section id="trades">
-    <a href="#" id="electrician" title="sähköasentaja"><i class="fa fa-bolt" aria-hidden="true"></i></a>    
-    <a href="#" id="hvac" title="LVI-asentaja"><i class="fa fa-bath" aria-hidden="true"></i></a>
-    <a href="#" id="builder" title="rakentaja"><i class="fa fa-home" aria-hidden="true"></i></a>
+  <header>Kunta</header>
+  <section id="area">Turku</section>
+  <header>Haettu asiantuntija</header>
+  <section id="professions">
+    <a href="#" title="sähköasentaja" class="profession" data-profession="electrician">Sähköasentaja</a>    
+    <a href="#" title="LVI-asentaja" class="profession" data-profession="hvac">LVI-asentaja</a>    
   </section>
   <section id="profiles"></section>
   <footer></footer>
 </body>
+
+<template id="company-template">
+    <div class="company">
+      <span class="name"></div>
+    </div>
+</template>
+
 <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
 <script>
   // Initialize Firebase

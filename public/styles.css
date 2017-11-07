@@ -4,23 +4,33 @@ body {
     margin: 0;
 }
 
-#area {
+header {
     text-align: center;
-    font-size: 2em;
     text-transform: uppercase;
-    margin: 1em;
+    margin-top: 1em;
+    margin-bottom: 0em;
 }
 
-#trades {
+section {
+    font-size: 2em;
     text-align: center;
-    font-size: 3em;
-    margin: 1em;
+    text-transform: uppercase;
+    margin-top: 0em;
+    margin-bottom: 0em;
 }
 
-#trades a {
-    margin: 1em;
+#profiles {
+    font-size: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 a {
     color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.selected {
+    text-decoration: underline;
 }
