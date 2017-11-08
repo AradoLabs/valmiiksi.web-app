@@ -39,6 +39,10 @@ a {
     text-decoration: underline;
 }
 
+.phoneNumbers  {
+    display: inline-block;
+}
+
 .phoneNumbers a {
     display: block;
     color: rgb(84, 49, 243);

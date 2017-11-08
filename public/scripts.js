@@ -39,7 +39,7 @@
         }
 
         const profession = selectedProfessionElement.getAttribute("data-profession");
-        const url = "http://localhost:10888/api/companies/" + selectedArea + "/" + profession;
+        const url = "https://agent.valmiiksi.fi/api/companies/" + selectedArea + "/" + profession;
         const template = document.getElementById("company-template");
 
         httpGet(url)
