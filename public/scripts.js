@@ -30,8 +30,16 @@
         return httpSend("GET", url);
     };
 
-    const reload = (area, profession) => {
-        const url = "http://localhost:10888/api/companies/" + area + "/" + profession;
+    const reload = () => {        
+        const selectedArea = document.getElementById("selected-area").value;
+        const selectedProfessionElement = document.querySelector(".profession.selected");
+
+        if(!selectedArea || !selectedProfessionElement) {
+            return;
+        }
+
+        const profession = selectedProfessionElement.getAttribute("data-profession");
+        const url = "http://localhost:10888/api/companies/" + selectedArea + "/" + profession;
         const template = document.getElementById("company-template");
 
         httpGet(url)
@@ -45,15 +53,21 @@
                     const clonedTemplate = document.importNode(template.content, true);
                     const companyElement = clonedTemplate.querySelector(".company");
                     const companyNameElement = companyElement.querySelector(".name");
+                    const phoneNumbersElement = companyElement.querySelector(".phoneNumbers");
+
+                    const phoneNumbers = company.phoneNumbers.reduce((reduced, phoneNumber) => {
+                        return reduced + "<a href=\"tel:" + phoneNumber + "\">" + phoneNumber + "</a>";
+                    }, "");
 
                     companyNameElement.innerText = company.name;
+                    phoneNumbersElement.innerHTML = phoneNumbers;
 
                     profilesElement.appendChild(companyElement);
                 });
             });
     };
 
-    const professionSelector = () => {
+    const hookUp = () => {
         const professionElements = Array.from(document.getElementsByClassName("profession"));
 
         var professionClicked = (selectedProfessionElement) => () => {
@@ -62,17 +76,17 @@
                 professionElement.classList.remove("selected");
             });
             selectedProfessionElement.classList.add("selected");
-            
-            const selectedArea = document.getElementById("area").innerText;
-            const selectedProfession = selectedProfessionElement.getAttribute("data-profession");
 
-            reload(selectedArea, selectedProfession);
+            reload();
         };
+
+        const selectedAreaElement = document.getElementById("selected-area");
+        selectedAreaElement.addEventListener("input", reload);
 
         professionElements.forEach(function (professionElement) {
             professionElement.addEventListener("click", professionClicked(professionElement));
         });
     };
 
-    professionSelector();
+    hookUp();
 })();

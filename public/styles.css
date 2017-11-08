@@ -31,6 +31,25 @@ a {
     text-decoration: none;
 }
 
+.company {
+    margin-bottom: 0.5em;
+}
+
 .selected {
     text-decoration: underline;
+}
+
+.phoneNumbers a {
+    display: block;
+    color: rgb(84, 49, 243);
+}
+
+input {
+    border: none;
+    font-size: 1em;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    padding-left: 2em;
 }
