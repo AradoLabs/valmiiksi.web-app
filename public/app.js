@@ -30,7 +30,7 @@
         return httpSend("GET", url);
     };
 
-    const reload = () => {        
+    const reloadContacts = () => {        
         const selectedArea = document.getElementById("selected-area").value;
         const selectedProfessionElement = document.querySelector(".profession.selected");
 
@@ -67,7 +67,15 @@
             });
     };
 
-    const hookUp = () => {
+    const startup = () => {
+
+        const pathParts = window.location.pathname.split();
+
+        if(pathParts.length === 2) {
+            const area = pathParts[0];
+            const profession = pathParts[1];
+        }
+
         const professionElements = Array.from(document.getElementsByClassName("profession"));
 
         var professionClicked = (selectedProfessionElement) => () => {
@@ -77,16 +85,18 @@
             });
             selectedProfessionElement.classList.add("selected");
 
-            reload();
+            reloadContacts();
         };
 
         const selectedAreaElement = document.getElementById("selected-area");
-        selectedAreaElement.addEventListener("input", reload);
+        selectedAreaElement.addEventListener("input", reloadContacts);
 
         professionElements.forEach(function (professionElement) {
             professionElement.addEventListener("click", professionClicked(professionElement));
         });
     };
 
-    hookUp();
+    startup();
+
+    window.reloadContacts = reloadContacts;
 })();
