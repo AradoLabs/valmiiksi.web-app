@@ -68,7 +68,7 @@
                             const prefix = protocolRegex.test(address) ? "" : "http://";
                             const url = new URL(prefix + address).toString();
 
-                            return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + url + "</a>";
+                            return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + address + "</a>";
                         }
                         catch(exception)
                         {
