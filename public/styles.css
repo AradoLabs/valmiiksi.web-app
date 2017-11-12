@@ -48,6 +48,15 @@ a {
     color: rgb(84, 49, 243);
 }
 
+.websites  {
+}
+
+.websites a {
+    text-transform: lowercase;
+    display: block;
+    color: rgb(84, 49, 243);
+}
+
 input {
     border: none;
     font-size: 1em;

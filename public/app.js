@@ -54,13 +54,31 @@
                     const companyElement = clonedTemplate.querySelector(".company");
                     const companyNameElement = companyElement.querySelector(".name");
                     const phoneNumbersElement = companyElement.querySelector(".phoneNumbers");
+                    const websitesElement = companyElement.querySelector(".websites");
+                    const protocolRegex = new RegExp("^http(s)?://");
 
                     const phoneNumbers = company.phoneNumbers.reduce((reduced, phoneNumber) => {
                         return reduced + "<a href=\"tel:" + phoneNumber + "\">" + phoneNumber + "</a>";
                     }, "");
+                    
+                    const websites = company.websites.reduce((reduced, website) => {
+                        try
+                        {
+                            const address = website.trim();
+                            const prefix = protocolRegex.test(address) ? "" : "http://";
+                            const url = new URL(prefix + address).toString();
+
+                            return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + url + "</a>";
+                        }
+                        catch(exception)
+                        {
+                            return reduced;
+                        }
+                    }, "");
 
                     companyNameElement.innerText = company.name;
                     phoneNumbersElement.innerHTML = phoneNumbers;
+                    websitesElement.innerHTML = websites;
 
                     profilesElement.appendChild(companyElement);
                 });
