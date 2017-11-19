@@ -47,6 +47,51 @@
         return httpSend("GET", url);
     };
 
+    var createCompanyElement = function createCompanyElement(company) {
+        // <div class="company">
+        //     <div class="name"></div>
+        //     <div class="websites"></div>
+        //     <div class="phone-numbers"></div>
+        // </div>
+        var companyElement = document.createElement("div");
+        var nameElement = document.createElement("div");
+        var websitesElement = document.createElement("div");
+        var phoneNumbersElement = document.createElement("div");
+
+        companyElement.classList.add("company");
+        nameElement.classList.add("name");
+        websitesElement.classList.add("websites");
+        phoneNumbersElement.classList.add("phone-numbers");
+
+        var protocolRegex = new RegExp("^http(s)?://");
+
+        var phoneNumbers = company.phoneNumbers.reduce(function (reduced, phoneNumber) {
+            return reduced + "<a href=\"tel:" + phoneNumber + "\">" + phoneNumber + "</a>";
+        }, "");
+
+        var websites = company.websites.reduce(function (reduced, website) {
+            try {
+                var address = website.trim();
+                var prefix = protocolRegex.test(address) ? "" : "http://";
+                var url = new URL(prefix + address).toString();
+
+                return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + address + "</a>";
+            } catch (exception) {
+                return reduced;
+            }
+        }, "");
+
+        nameElement.innerText = company.name;
+        phoneNumbersElement.innerHTML = phoneNumbers;
+        websitesElement.innerHTML = websites;
+
+        companyElement.appendChild(nameElement);
+        companyElement.appendChild(websitesElement);
+        companyElement.appendChild(phoneNumbersElement);
+
+        return companyElement;
+    };
+
     var reloadContacts = function reloadContacts() {
         var selectedArea = document.getElementById("selected-area").value;
         var selectedProfessionElement = document.querySelector(".profession.selected");
@@ -57,7 +102,6 @@
 
         var profession = selectedProfessionElement.getAttribute("data-profession");
         var url = "https://agent.valmiiksi.fi/api/companies/" + selectedArea + "/" + profession;
-        var template = document.getElementById("company-template");
 
         httpGet(url).then(function (request) {
             var companies = JSON.parse(request.responseText);
@@ -66,32 +110,7 @@
             profilesElement.innerHTML = "";
 
             companies.forEach(function (company) {
-                var clonedTemplate = document.importNode(template.content, true);
-                var companyElement = clonedTemplate.querySelector(".company");
-                var companyNameElement = companyElement.querySelector(".name");
-                var phoneNumbersElement = companyElement.querySelector(".phoneNumbers");
-                var websitesElement = companyElement.querySelector(".websites");
-                var protocolRegex = new RegExp("^http(s)?://");
-
-                var phoneNumbers = company.phoneNumbers.reduce(function (reduced, phoneNumber) {
-                    return reduced + "<a href=\"tel:" + phoneNumber + "\">" + phoneNumber + "</a>";
-                }, "");
-
-                var websites = company.websites.reduce(function (reduced, website) {
-                    try {
-                        var address = website.trim();
-                        var prefix = protocolRegex.test(address) ? "" : "http://";
-                        var _url = new URL(prefix + address).toString();
-
-                        return reduced + "<a target=\"_blank\" href=\"" + _url + "\">" + address + "</a>";
-                    } catch (exception) {
-                        return reduced;
-                    }
-                }, "");
-
-                companyNameElement.innerText = company.name;
-                phoneNumbersElement.innerHTML = phoneNumbers;
-                websitesElement.innerHTML = websites;
+                var companyElement = createCompanyElement(company);
 
                 profilesElement.appendChild(companyElement);
             });

@@ -30,17 +30,62 @@
         return httpSend("GET", url);
     };
 
-    const reloadContacts = () => {        
+    const createCompanyElement = (company) => {
+        // <div class="company">
+        //     <div class="name"></div>
+        //     <div class="websites"></div>
+        //     <div class="phone-numbers"></div>
+        // </div>
+        const companyElement = document.createElement("div");
+        const nameElement = document.createElement("div");
+        const websitesElement = document.createElement("div");
+        const phoneNumbersElement = document.createElement("div");
+
+        companyElement.classList.add("company");
+        nameElement.classList.add("name");
+        websitesElement.classList.add("websites");
+        phoneNumbersElement.classList.add("phone-numbers");
+
+        const protocolRegex = new RegExp("^http(s)?://");
+
+        const phoneNumbers = company.phoneNumbers.reduce((reduced, phoneNumber) => {
+            return reduced + "<a href=\"tel:" + phoneNumber + "\">" + phoneNumber + "</a>";
+        }, "");
+
+        const websites = company.websites.reduce((reduced, website) => {
+            try {
+                const address = website.trim();
+                const prefix = protocolRegex.test(address) ? "" : "http://";
+                const url = new URL(prefix + address).toString();
+
+                return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + address + "</a>";
+            }
+            catch (exception) {
+                return reduced;
+            }
+        }, "");
+
+        nameElement.innerText = company.name;
+        phoneNumbersElement.innerHTML = phoneNumbers;
+        websitesElement.innerHTML = websites;
+
+        companyElement.appendChild(nameElement);
+        companyElement.appendChild(websitesElement);
+        companyElement.appendChild(phoneNumbersElement);
+
+        return companyElement;
+    };
+
+    const reloadContacts = () => {
         const selectedArea = document.getElementById("selected-area").value;
         const selectedProfessionElement = document.querySelector(".profession.selected");
 
-        if(!selectedArea || !selectedProfessionElement) {
+        if (!selectedArea || !selectedProfessionElement) {
             return;
         }
 
         const profession = selectedProfessionElement.getAttribute("data-profession");
         const url = "https://agent.valmiiksi.fi/api/companies/" + selectedArea + "/" + profession;
-        const template = document.getElementById("company-template");
 
         httpGet(url)
             .then(request => {
@@ -50,35 +95,7 @@
                 profilesElement.innerHTML = "";
 
                 companies.forEach(function (company) {
-                    const clonedTemplate = document.importNode(template.content, true);
-                    const companyElement = clonedTemplate.querySelector(".company");
-                    const companyNameElement = companyElement.querySelector(".name");
-                    const phoneNumbersElement = companyElement.querySelector(".phoneNumbers");
-                    const websitesElement = companyElement.querySelector(".websites");
-                    const protocolRegex = new RegExp("^http(s)?://");
-
-                    const phoneNumbers = company.phoneNumbers.reduce((reduced, phoneNumber) => {
-                        return reduced + "<a href=\"tel:" + phoneNumber + "\">" + phoneNumber + "</a>";
-                    }, "");
-                    
-                    const websites = company.websites.reduce((reduced, website) => {
-                        try
-                        {
-                            const address = website.trim();
-                            const prefix = protocolRegex.test(address) ? "" : "http://";
-                            const url = new URL(prefix + address).toString();
-
-                            return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + address + "</a>";
-                        }
-                        catch(exception)
-                        {
-                            return reduced;
-                        }
-                    }, "");
-
-                    companyNameElement.innerText = company.name;
-                    phoneNumbersElement.innerHTML = phoneNumbers;
-                    websitesElement.innerHTML = websites;
+                    const companyElement = createCompanyElement(company);
 
                     profilesElement.appendChild(companyElement);
                 });
@@ -89,7 +106,7 @@
 
         const pathParts = window.location.pathname.split();
 
-        if(pathParts.length === 2) {
+        if (pathParts.length === 2) {
             const area = pathParts[0];
             const profession = pathParts[1];
         }

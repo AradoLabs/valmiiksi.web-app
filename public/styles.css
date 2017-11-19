@@ -39,11 +39,11 @@ a {
     text-decoration: underline;
 }
 
-.phoneNumbers  {
+.phone-numbers   {
     display: inline-block;
 }
 
-.phoneNumbers a {
+.phone-numbers a {
     display: block;
     color: rgb(84, 49, 243);
 }
