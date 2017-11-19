@@ -1,4 +1,13 @@
 (function () {
+
+    const normalizeText = (text) => {
+        if (!text) {
+            return "";
+        }
+
+        return text.trim().toLowerCase().replace(/å/g, '').replace(/ä/g, "a").replace(/ö/g, "o");
+    };
+
     const httpSend = (method, url) => {
 
         return new Promise((resolve, reject) => {
@@ -85,7 +94,8 @@
         }
 
         const profession = selectedProfessionElement.getAttribute("data-profession");
-        const url = "https://agent.valmiiksi.fi/api/companies/" + selectedArea + "/" + profession;
+        const area = normalizeText(selectedArea);
+        const url = "https://agent.valmiiksi.fi/api/companies/" + area + "/" + profession;
 
         httpGet(url)
             .then(request => {

@@ -16,6 +16,15 @@
 "use strict";
 
 (function () {
+
+    var normalizeText = function normalizeText(text) {
+        if (!text) {
+            return "";
+        }
+
+        return text.trim().toLowerCase().replace(/å/g, '').replace(/ä/g, "a").replace(/ö/g, "o");
+    };
+
     var httpSend = function httpSend(method, url) {
 
         return new Promise(function (resolve, reject) {
@@ -101,7 +110,8 @@
         }
 
         var profession = selectedProfessionElement.getAttribute("data-profession");
-        var url = "https://agent.valmiiksi.fi/api/companies/" + selectedArea + "/" + profession;
+        var area = normalizeText(selectedArea);
+        var url = "https://agent.valmiiksi.fi/api/companies/" + area + "/" + profession;
 
         httpGet(url).then(function (request) {
             var companies = JSON.parse(request.responseText);
@@ -161,7 +171,7 @@
             return "";
         }
 
-        return text.replace("å", "a").replace("ä", "a").replace("ö", "o").trim().toLowerCase();
+        return text.trim().toLowerCase().replace(/å/g, '').replace(/ä/g, "a").replace(/ö/g, "o");
     };
 
     var doPreselection = function doPreselection() {
@@ -169,13 +179,12 @@
         var pathParts = window.location.pathname.split("/");
 
         if (pathParts.length > 2) {
-            var area = normalizeText(decodeURI(pathParts[1]));
+            var area = decodeURI(pathParts[1]);
             var profession = normalizeText(decodeURI(pathParts[2]));
             var selectedAreaElement = document.getElementById("selected-area");
             var selectHvac = profession.toLowerCase() === "lvi-asentaja";
             var electricianElement = Array.from(document.querySelectorAll('[data-profession="electrician"]'))[0];
             var hvacElement = Array.from(document.querySelectorAll('[data-profession="hvac"]'))[0];
-            var selectedArea = area;
 
             if (selectHvac) {
                 hvacElement.classList.add("selected");
@@ -185,18 +194,8 @@
                 hvacElement.classList.remove("selected");
             }
 
-            var municipalities = Array.from(document.getElementById("areas").children);
-
-            for (var i = 0; i < municipalities.length; i++) {
-                var municipality = normalizeText(municipalities[i].value);
-
-                if (municipality === selectedArea) {
-                    selectedArea = municipality;
-                    break;
-                }
-            }
-
             selectedAreaElement.value = area;
+
             window.reloadContacts();
         }
     };
