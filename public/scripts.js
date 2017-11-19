@@ -21,12 +21,14 @@
         errorBoxElement.appendChild(errorLine);
     };
 
-    window.onerror = function (errorMsg, url, lineNumber) {
-        showError('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    window.logError = function (error) {
+        showError(error);
     };
 
-    window.logError = function (error) {
-        return showError(error);
+    window.onerror = function (errorMsg, url, lineNumber) {
+        var error = 'Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber;
+
+        window.logError(error);
     };
 })();
 "use strict";
@@ -179,7 +181,7 @@
                 }
 
                 selectedProfessionElement.classList.add("selected");
-
+                ada;
                 reloadContacts();
             };
         };

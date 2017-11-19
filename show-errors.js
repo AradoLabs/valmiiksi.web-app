@@ -20,9 +20,13 @@
         errorBoxElement.appendChild(errorLine);
     };
 
-    window.onerror = (errorMsg, url, lineNumber) => {
-        showError('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    window.logError = (error) => {
+        // showError(error);
     };
 
-    window.logError = (error) => showError(error);
+    window.onerror = (errorMsg, url, lineNumber) => {
+        const error = 'Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber;
+
+        window.logError(error);
+    };
 })();
