@@ -22,7 +22,7 @@
     };
 
     window.logError = function (error) {
-        showError(error);
+        // showError(error);
     };
 
     window.onerror = function (errorMsg, url, lineNumber) {
@@ -181,7 +181,7 @@
                 }
 
                 selectedProfessionElement.classList.add("selected");
-                ada;
+
                 reloadContacts();
             };
         };
