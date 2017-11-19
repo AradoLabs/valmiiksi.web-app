@@ -109,7 +109,8 @@
 
                     profilesElement.appendChild(companyElement);
                 });
-            });
+            })
+            .catch(error => window.logError(error));
     };
 
     const startup = () => {
