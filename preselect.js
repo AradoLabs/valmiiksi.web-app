@@ -17,8 +17,8 @@
             const profession = normalizeText(decodeURI(pathParts[2]));
             const selectedAreaElement = document.getElementById("selected-area");
             const selectHvac = profession.toLowerCase() === "lvi-asentaja";
-            const electricianElement  = Array.from(document.querySelectorAll('[data-profession="electrician"]'))[0];
-            const hvacElement  = Array.from(document.querySelectorAll('[data-profession="hvac"]'))[0];
+            const electricianElement  = document.querySelectorAll('[data-profession="electrician"]')[0];
+            const hvacElement  = document.querySelectorAll('[data-profession="hvac"]')[0];
 
             if(selectHvac) {
                 hvacElement.classList.add("selected");

@@ -122,13 +122,14 @@
             const profession = pathParts[1];
         }
 
-        const professionElements = Array.from(document.getElementsByClassName("profession"));
+        const professionElements = document.getElementsByClassName("profession");
 
         var professionClicked = (selectedProfessionElement) => () => {
 
-            professionElements.forEach((professionElement) => {
-                professionElement.classList.remove("selected");
-            });
+            for (var i = 0; i < professionElements.length; i++) {
+                professionElements[i].classList.remove("selected");                
+            }
+
             selectedProfessionElement.classList.add("selected");
 
             reloadContacts();
@@ -137,9 +138,9 @@
         const selectedAreaElement = document.getElementById("selected-area");
         selectedAreaElement.addEventListener("input", reloadContacts);
 
-        professionElements.forEach(function (professionElement) {
-            professionElement.addEventListener("click", professionClicked(professionElement));
-        });
+        for (var i = 0; i < professionElements.length; i++) {
+            professionElements[i].addEventListener("click", professionClicked(professionElements[i]));              
+        }
     };
 
     startup();

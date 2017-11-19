@@ -169,14 +169,15 @@
             var profession = pathParts[1];
         }
 
-        var professionElements = Array.from(document.getElementsByClassName("profession"));
+        var professionElements = document.getElementsByClassName("profession");
 
         var professionClicked = function professionClicked(selectedProfessionElement) {
             return function () {
 
-                professionElements.forEach(function (professionElement) {
-                    professionElement.classList.remove("selected");
-                });
+                for (var i = 0; i < professionElements.length; i++) {
+                    professionElements[i].classList.remove("selected");
+                }
+
                 selectedProfessionElement.classList.add("selected");
 
                 reloadContacts();
@@ -186,9 +187,9 @@
         var selectedAreaElement = document.getElementById("selected-area");
         selectedAreaElement.addEventListener("input", reloadContacts);
 
-        professionElements.forEach(function (professionElement) {
-            professionElement.addEventListener("click", professionClicked(professionElement));
-        });
+        for (var i = 0; i < professionElements.length; i++) {
+            professionElements[i].addEventListener("click", professionClicked(professionElements[i]));
+        }
     };
 
     startup();
@@ -216,8 +217,8 @@
             var profession = normalizeText(decodeURI(pathParts[2]));
             var selectedAreaElement = document.getElementById("selected-area");
             var selectHvac = profession.toLowerCase() === "lvi-asentaja";
-            var electricianElement = Array.from(document.querySelectorAll('[data-profession="electrician"]'))[0];
-            var hvacElement = Array.from(document.querySelectorAll('[data-profession="hvac"]'))[0];
+            var electricianElement = document.querySelectorAll('[data-profession="electrician"]')[0];
+            var hvacElement = document.querySelectorAll('[data-profession="hvac"]')[0];
 
             if (selectHvac) {
                 hvacElement.classList.add("selected");
