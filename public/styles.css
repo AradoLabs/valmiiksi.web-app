@@ -12,7 +12,7 @@ header {
 }
 
 section {
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
     text-transform: uppercase;
     margin-top: 0em;
@@ -39,11 +39,20 @@ a {
     text-decoration: underline;
 }
 
-.phoneNumbers  {
+.phone-numbers   {
     display: inline-block;
 }
 
-.phoneNumbers a {
+.phone-numbers a {
+    display: block;
+    color: rgb(84, 49, 243);
+}
+
+.websites  {
+}
+
+.websites a {
+    text-transform: lowercase;
     display: block;
     color: rgb(84, 49, 243);
 }

@@ -1,0 +1,23 @@
+{
+  "name": "valmiiksi.web-app",
+  "version": "1.0.0",
+  "description": "valmiiksi.fi",
+  "main": "app.js",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-minify": "^0.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "./node_modules/.bin/babel show-errors.js areas.js app.js preselect.js --presets es2015 > public/scripts.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/vilppu/valmiiksi.web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/vilppu/valmiiksi.web-app#readme"
+}
