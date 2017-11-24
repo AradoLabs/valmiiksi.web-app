@@ -11,7 +11,9 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "bundle": "./node_modules/.bin/babel show-errors.js areas.js app.js preselect.js --presets es2015 > public/scripts.js"
+    "bundle": "./node_modules/.bin/babel *.js > public/scripts.js",
+    "start": "firebase serve",
+    "deploy": "firebase deploy" 
   },
   "repository": {
     "type": "git",

@@ -1,54 +1,4 @@
-'use strict';
-
-(function () {
-    var errorBoxElement = false;
-    var showError = function showError(error) {
-        if (!errorBoxElement) {
-            errorBoxElement = document.createElement('div');
-            errorBoxElement.style.position = 'absolute';
-            errorBoxElement.style.top = '0';
-            errorBoxElement.style.bottom = '0';
-            errorBoxElement.style.left = '0';
-            errorBoxElement.style.right = '0';
-            errorBoxElement.style.background = 'rgba(255, 0, 0, 0.7)';
-            errorBoxElement.style.zIndex = 1000000;
-            errorBoxElement.style.color = '#fff';
-            errorBoxElement.style.padding = '10px';
-            document.body.appendChild(errorBoxElement);
-        }
-        var errorLine = document.createElement('div');
-        errorLine.innerHTML = error;
-        errorBoxElement.appendChild(errorLine);
-    };
-
-    window.logError = function (error) {
-        // showError(error);
-    };
-
-    window.onerror = function (errorMsg, url, lineNumber) {
-        var error = 'Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber;
-
-        window.logError(error);
-    };
-})();
-"use strict";
-
-(function () {
-    var municipalities = ["Alajärvi", "Alavieska", "Alavus", "Asikkala", "Askola", "Aura", "Akaa", "Brändö", "Eckerö", "Enonkoski", "Enontekiö", "Espoo", "Eura", "Eurajoki", "Evijärvi", "Finström", "Forssa", "Föglö", "Geta", "Haapajärvi", "Haapavesi", "Hailuoto", "Halsua", "Hamina", "Hammarland", "Hankasalmi", "Hanko", "Harjavalta", "Hartola", "Hattula", "Hausjärvi", "Heinävesi", "Helsinki", "Vantaa", "Hirvensalmi", "Hollola", "Honkajoki", "Huittinen", "Humppila", "Hyrynsalmi", "Hyvinkää", "Hämeenkyrö", "Hämeenlinna", "Heinola", "Ii", "Iisalmi", "Iitti", "Ikaalinen", "Ilmajoki", "Ilomantsi", "Inari", "Inkoo", "Isojoki", "Isokyrö", "Imatra", "Janakkala", "Joensuu", "Jokioinen", "Jomala", "Joroinen", "Joutsa", "Juuka", "Juupajoki", "Juva", "Jyväskylä", "Jämijärvi", "Jämsä", "Järvenpää", "Kaarina", "Kaavi", "Kajaani", "Kalajoki", "Kangasala", "Kangasniemi", "Kankaanpää", "Kannonkoski", "Kannus", "Karijoki", "Karkkila", "Karstula", "Karvia", "Kaskinen", "Kauhajoki", "Kauhava", "Kauniainen", "Kaustinen", "Keitele", "Kemi", "Keminmaa", "Kempele", "Kerava", "Keuruu", "Kihniö", "Kinnula", "Kirkkonummi", "Kitee", "Kittilä", "Kiuruvesi", "Kivijärvi", "Kokemäki", "Kokkola", "Kolari", "Konnevesi", "Kontiolahti", "Korsnäs", "Koski Tl", "Kotka", "Kouvola", "Kristiinankaupunki", "Kruunupyy", "Kuhmo", "Kuhmoinen", "Kumlinge", "Kuopio", "Kuortane", "Kurikka", "Kustavi", "Kuusamo", "Outokumpu", "Kyyjärvi", "Kärkölä", "Kärsämäki", "Kökar", "Kemijärvi", "Kemiönsaari", "Lahti", "Laihia", "Laitila", "Lapinlahti", "Lappajärvi", "Lappeenranta", "Lapinjärvi", "Lapua", "Laukaa", "Lemi", "Lemland", "Lempäälä", "Leppävirta", "Lestijärvi", "Lieksa", "Lieto", "Liminka", "Liperi", "Loimaa", "Loppi", "Loviisa", "Luhanka", "Lumijoki", "Lumparland", "Luoto", "Luumäki", "Lohja", "Parainen", "Maalahti", "Maarianhamina", "Marttila", "Masku", "Merijärvi", "Merikarvia", "Miehikkälä", "Mikkeli", "Muhos", "Multia", "Muonio", "Mustasaari", "Muurame", "Mynämäki", "Myrskylä", "Mäntsälä", "Mäntyharju", "Mänttä-Vilppula", "Naantali", "Nakkila", "Nivala", "Nokia", "Nousiainen", "Nurmes", "Nurmijärvi", "Närpiö", "Orimattila", "Oripää", "Orivesi", "Oulainen", "Oulu", "Padasjoki", "Paimio", "Paltamo", "Parikkala", "Parkano", "Pelkosenniemi", "Perho", "Pertunmaa", "Petäjävesi", "Pieksämäki", "Pielavesi", "Pietarsaari", "Pedersören kunta", "Pihtipudas", "Pirkkala", "Polvijärvi", "Pomarkku", "Pori", "Pornainen", "Posio", "Pudasjärvi", "Pukkila", "Punkalaidun", "Puolanka", "Puumala", "Pyhtää", "Pyhäjoki", "Pyhäjärvi", "Pyhäntä", "Pyhäranta", "Pälkäne", "Pöytyä", "Porvoo", "Raahe", "Raisio", "Rantasalmi", "Ranua", "Rauma", "Rautalampi", "Rautavaara", "Rautjärvi", "Reisjärvi", "Riihimäki", "Ristijärvi", "Rovaniemi", "Ruokolahti", "Ruovesi", "Rusko", "Rääkkylä", "Raasepori", "Saarijärvi", "Salla", "Salo", "Saltvik", "Sauvo", "Savitaipale", "Savonlinna", "Savukoski", "Seinäjoki", "Sievi", "Siikainen", "Siikajoki", "Siilinjärvi", "Simo", "Sipoo", "Siuntio", "Sodankylä", "Soini", "Somero", "Sonkajärvi", "Sotkamo", "Sottunga", "Sulkava", "Sund", "Suomussalmi", "Suonenjoki", "Sysmä", "Säkylä", "Vaala", "Sastamala", "Siikalatva", "Taipalsaari", "Taivalkoski", "Taivassalo", "Tammela", "Tampere", "Tervo", "Tervola", "Teuva", "Tohmajärvi", "Toholampi", "Toivakka", "Tornio", "Turku", "Pello", "Tuusniemi", "Tuusula", "Tyrnävä", "Ulvila", "Urjala", "Utajärvi", "Utsjoki", "Uurainen", "Uusikaarlepyy", "Uusikaupunki", "Vaasa", "Valkeakoski", "Valtimo", "Varkaus", "Vehmaa", "Vesanto", "Vesilahti", "Veteli", "Vieremä", "Vihti", "Viitasaari", "Vimpeli", "Virolahti", "Virrat", "Vårdö", "Vöyri", "Ylitornio", "Ylivieska", "Ylöjärvi", "Ypäjä", "Ähtäri", "Äänekoski"];
-
-    var areaListElement = document.getElementById("areas");
-
-    municipalities.forEach(function (municipality) {
-        var optionElement = document.createElement("option");
-
-        optionElement.value = municipality;
-
-        areaListElement.appendChild(optionElement);
-    });
-})();
-"use strict";
-
-(function () {
+"use strict";(function () {
 
     var normalizeText = function normalizeText(text) {
         if (!text) {
@@ -118,7 +68,8 @@
                 var url = new URL(prefix + address).toString();
 
                 return reduced + "<a target=\"_blank\" href=\"" + url + "\">" + address + "</a>";
-            } catch (exception) {
+            }
+            catch (exception) {
                 return reduced;
             }
         }, "");
@@ -146,7 +97,8 @@
         var area = normalizeText(selectedArea);
         var url = "https://agent.valmiiksi.fi/api/companies/" + area + "/" + profession;
 
-        httpGet(url).then(function (request) {
+        httpGet(url).
+        then(function (request) {
             var companies = JSON.parse(request.responseText);
             var profilesElement = document.getElementById("profiles");
 
@@ -157,9 +109,8 @@
 
                 profilesElement.appendChild(companyElement);
             });
-        }).catch(function (error) {
-            return window.logError(error);
-        });
+        }).
+        catch(function (error) {return window.logError(error);});
     };
 
     var startup = function startup() {
@@ -173,8 +124,7 @@
 
         var professionElements = document.getElementsByClassName("profession");
 
-        var professionClicked = function professionClicked(selectedProfessionElement) {
-            return function () {
+        var professionClicked = function professionClicked(selectedProfessionElement) {return function () {
 
                 for (var i = 0; i < professionElements.length; i++) {
                     professionElements[i].classList.remove("selected");
@@ -183,8 +133,7 @@
                 selectedProfessionElement.classList.add("selected");
 
                 reloadContacts();
-            };
-        };
+            };};
 
         var selectedAreaElement = document.getElementById("selected-area");
         selectedAreaElement.addEventListener("input", reloadContacts);
@@ -198,9 +147,332 @@
 
     window.reloadContacts = reloadContacts;
 })();
-"use strict";
+"use strict";(function () {
+    var municipalities = [
+    "Alajärvi",
+    "Alavieska",
+    "Alavus",
+    "Asikkala",
+    "Askola",
+    "Aura",
+    "Akaa",
+    "Brändö",
+    "Eckerö",
+    "Enonkoski",
+    "Enontekiö",
+    "Espoo",
+    "Eura",
+    "Eurajoki",
+    "Evijärvi",
+    "Finström",
+    "Forssa",
+    "Föglö",
+    "Geta",
+    "Haapajärvi",
+    "Haapavesi",
+    "Hailuoto",
+    "Halsua",
+    "Hamina",
+    "Hammarland",
+    "Hankasalmi",
+    "Hanko",
+    "Harjavalta",
+    "Hartola",
+    "Hattula",
+    "Hausjärvi",
+    "Heinävesi",
+    "Helsinki",
+    "Vantaa",
+    "Hirvensalmi",
+    "Hollola",
+    "Honkajoki",
+    "Huittinen",
+    "Humppila",
+    "Hyrynsalmi",
+    "Hyvinkää",
+    "Hämeenkyrö",
+    "Hämeenlinna",
+    "Heinola",
+    "Ii",
+    "Iisalmi",
+    "Iitti",
+    "Ikaalinen",
+    "Ilmajoki",
+    "Ilomantsi",
+    "Inari",
+    "Inkoo",
+    "Isojoki",
+    "Isokyrö",
+    "Imatra",
+    "Janakkala",
+    "Joensuu",
+    "Jokioinen",
+    "Jomala",
+    "Joroinen",
+    "Joutsa",
+    "Juuka",
+    "Juupajoki",
+    "Juva",
+    "Jyväskylä",
+    "Jämijärvi",
+    "Jämsä",
+    "Järvenpää",
+    "Kaarina",
+    "Kaavi",
+    "Kajaani",
+    "Kalajoki",
+    "Kangasala",
+    "Kangasniemi",
+    "Kankaanpää",
+    "Kannonkoski",
+    "Kannus",
+    "Karijoki",
+    "Karkkila",
+    "Karstula",
+    "Karvia",
+    "Kaskinen",
+    "Kauhajoki",
+    "Kauhava",
+    "Kauniainen",
+    "Kaustinen",
+    "Keitele",
+    "Kemi",
+    "Keminmaa",
+    "Kempele",
+    "Kerava",
+    "Keuruu",
+    "Kihniö",
+    "Kinnula",
+    "Kirkkonummi",
+    "Kitee",
+    "Kittilä",
+    "Kiuruvesi",
+    "Kivijärvi",
+    "Kokemäki",
+    "Kokkola",
+    "Kolari",
+    "Konnevesi",
+    "Kontiolahti",
+    "Korsnäs",
+    "Koski Tl",
+    "Kotka",
+    "Kouvola",
+    "Kristiinankaupunki",
+    "Kruunupyy",
+    "Kuhmo",
+    "Kuhmoinen",
+    "Kumlinge",
+    "Kuopio",
+    "Kuortane",
+    "Kurikka",
+    "Kustavi",
+    "Kuusamo",
+    "Outokumpu",
+    "Kyyjärvi",
+    "Kärkölä",
+    "Kärsämäki",
+    "Kökar",
+    "Kemijärvi",
+    "Kemiönsaari",
+    "Lahti",
+    "Laihia",
+    "Laitila",
+    "Lapinlahti",
+    "Lappajärvi",
+    "Lappeenranta",
+    "Lapinjärvi",
+    "Lapua",
+    "Laukaa",
+    "Lemi",
+    "Lemland",
+    "Lempäälä",
+    "Leppävirta",
+    "Lestijärvi",
+    "Lieksa",
+    "Lieto",
+    "Liminka",
+    "Liperi",
+    "Loimaa",
+    "Loppi",
+    "Loviisa",
+    "Luhanka",
+    "Lumijoki",
+    "Lumparland",
+    "Luoto",
+    "Luumäki",
+    "Lohja",
+    "Parainen",
+    "Maalahti",
+    "Maarianhamina",
+    "Marttila",
+    "Masku",
+    "Merijärvi",
+    "Merikarvia",
+    "Miehikkälä",
+    "Mikkeli",
+    "Muhos",
+    "Multia",
+    "Muonio",
+    "Mustasaari",
+    "Muurame",
+    "Mynämäki",
+    "Myrskylä",
+    "Mäntsälä",
+    "Mäntyharju",
+    "Mänttä-Vilppula",
+    "Naantali",
+    "Nakkila",
+    "Nivala",
+    "Nokia",
+    "Nousiainen",
+    "Nurmes",
+    "Nurmijärvi",
+    "Närpiö",
+    "Orimattila",
+    "Oripää",
+    "Orivesi",
+    "Oulainen",
+    "Oulu",
+    "Padasjoki",
+    "Paimio",
+    "Paltamo",
+    "Parikkala",
+    "Parkano",
+    "Pelkosenniemi",
+    "Perho",
+    "Pertunmaa",
+    "Petäjävesi",
+    "Pieksämäki",
+    "Pielavesi",
+    "Pietarsaari",
+    "Pedersören kunta",
+    "Pihtipudas",
+    "Pirkkala",
+    "Polvijärvi",
+    "Pomarkku",
+    "Pori",
+    "Pornainen",
+    "Posio",
+    "Pudasjärvi",
+    "Pukkila",
+    "Punkalaidun",
+    "Puolanka",
+    "Puumala",
+    "Pyhtää",
+    "Pyhäjoki",
+    "Pyhäjärvi",
+    "Pyhäntä",
+    "Pyhäranta",
+    "Pälkäne",
+    "Pöytyä",
+    "Porvoo",
+    "Raahe",
+    "Raisio",
+    "Rantasalmi",
+    "Ranua",
+    "Rauma",
+    "Rautalampi",
+    "Rautavaara",
+    "Rautjärvi",
+    "Reisjärvi",
+    "Riihimäki",
+    "Ristijärvi",
+    "Rovaniemi",
+    "Ruokolahti",
+    "Ruovesi",
+    "Rusko",
+    "Rääkkylä",
+    "Raasepori",
+    "Saarijärvi",
+    "Salla",
+    "Salo",
+    "Saltvik",
+    "Sauvo",
+    "Savitaipale",
+    "Savonlinna",
+    "Savukoski",
+    "Seinäjoki",
+    "Sievi",
+    "Siikainen",
+    "Siikajoki",
+    "Siilinjärvi",
+    "Simo",
+    "Sipoo",
+    "Siuntio",
+    "Sodankylä",
+    "Soini",
+    "Somero",
+    "Sonkajärvi",
+    "Sotkamo",
+    "Sottunga",
+    "Sulkava",
+    "Sund",
+    "Suomussalmi",
+    "Suonenjoki",
+    "Sysmä",
+    "Säkylä",
+    "Vaala",
+    "Sastamala",
+    "Siikalatva",
+    "Taipalsaari",
+    "Taivalkoski",
+    "Taivassalo",
+    "Tammela",
+    "Tampere",
+    "Tervo",
+    "Tervola",
+    "Teuva",
+    "Tohmajärvi",
+    "Toholampi",
+    "Toivakka",
+    "Tornio",
+    "Turku",
+    "Pello",
+    "Tuusniemi",
+    "Tuusula",
+    "Tyrnävä",
+    "Ulvila",
+    "Urjala",
+    "Utajärvi",
+    "Utsjoki",
+    "Uurainen",
+    "Uusikaarlepyy",
+    "Uusikaupunki",
+    "Vaasa",
+    "Valkeakoski",
+    "Valtimo",
+    "Varkaus",
+    "Vehmaa",
+    "Vesanto",
+    "Vesilahti",
+    "Veteli",
+    "Vieremä",
+    "Vihti",
+    "Viitasaari",
+    "Vimpeli",
+    "Virolahti",
+    "Virrat",
+    "Vårdö",
+    "Vöyri",
+    "Ylitornio",
+    "Ylivieska",
+    "Ylöjärvi",
+    "Ypäjä",
+    "Ähtäri",
+    "Äänekoski"];
 
-(function () {
+
+    var areaListElement = document.getElementById("areas");
+
+    municipalities.forEach(function (municipality) {
+        var optionElement = document.createElement("option");
+
+        optionElement.value = municipality;
+
+        areaListElement.appendChild(optionElement);
+    });
+})();
+"use strict";(function () {
 
     var normalizeText = function normalizeText(text) {
         if (!text) {
@@ -225,7 +497,8 @@
             if (selectHvac) {
                 hvacElement.classList.add("selected");
                 electricianElement.classList.remove("selected");
-            } else {
+            } else
+            {
                 electricianElement.classList.add("selected");
                 hvacElement.classList.remove("selected");
             }
@@ -237,5 +510,37 @@
     };
 
     doPreselection();
+})();
+'use strict';
+(function () {
+    var errorBoxElement = false;
+    var showError = function showError(error) {
+        if (!errorBoxElement) {
+            errorBoxElement = document.createElement('div');
+            errorBoxElement.style.position = 'absolute';
+            errorBoxElement.style.top = '0';
+            errorBoxElement.style.bottom = '0';
+            errorBoxElement.style.left = '0';
+            errorBoxElement.style.right = '0';
+            errorBoxElement.style.background = 'rgba(255, 0, 0, 0.7)';
+            errorBoxElement.style.zIndex = 1000000;
+            errorBoxElement.style.color = '#fff';
+            errorBoxElement.style.padding = '10px';
+            document.body.appendChild(errorBoxElement);
+        }
+        var errorLine = document.createElement('div');
+        errorLine.innerHTML = error;
+        errorBoxElement.appendChild(errorLine);
+    };
+
+    window.logError = function (error) {
+        // showError(error);
+    };
+
+    window.onerror = function (errorMsg, url, lineNumber) {
+        var error = 'Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber;
+
+        window.logError(error);
+    };
 })();
 
