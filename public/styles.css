@@ -4,16 +4,19 @@ body {
     margin: 0;
 }
 
+.content {
+    margin: auto;
+    max-width: 600px;
+}
+
 header {
-    text-align: center;
-    text-transform: uppercase;
     margin-top: 1em;
     margin-bottom: 0em;
+    color: rgb(193, 190, 207);
 }
 
 section {
     font-size: 1.5em;
-    text-align: center;
     text-transform: uppercase;
     margin-top: 0em;
     margin-bottom: 0em;
@@ -21,7 +24,7 @@ section {
 
 #profiles {
     font-size: 1em;
-    margin-top: 1em;
+    margin-top: 2em;
     margin-bottom: 1em;
 }
 
@@ -54,15 +57,13 @@ a {
 .websites a {
     text-transform: lowercase;
     display: block;
-    color: rgb(84, 49, 243);
+    color: rgb(36, 30, 62);
 }
 
 input {
     border: none;
     font-size: 1em;
-    text-align: center;
     text-transform: uppercase;
     margin-top: 0em;
     margin-bottom: 0em;
-    padding-left: 2em;
 }
